@@ -14,7 +14,7 @@ import Data.Complex
 {- Constants -}
 
 origin = 0.0 :+ 0.0     -- center of cood-sys
-precision = 400         -- how many iterations to check isMandelbrot
+precision = 100         -- how many iterations to check isMandelbrot
 
 
 {- Mandelbrot Functions -}
@@ -104,4 +104,4 @@ view6 = ((((-0.552) :+ (-0.625))
 
 main = (uncurry $ uncurry printMandelbrot) view6
 
--- TIP: play with the precision variable at the top. At 400 the babybrot looks funky, at 10000 it looks perfect!
+-- TIP: play with the precision variable at the top. At 100 the babybrot looks funky, at 10000 it looks perfect!
