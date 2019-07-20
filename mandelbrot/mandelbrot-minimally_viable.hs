@@ -13,4 +13,4 @@ main = printMandelbrot ((-1.5) :+ ( 1.5)) (( 1.5) :+ (-1.5)) 20
 -- And even though I inlined the one-time variables and the mandelSeq code, as
 -- well as the mandelFieldToString function this is still a readable piece of
 -- code. Bloody awesome!
--- Note: 180 is the largest working zoom for iTerm
+-- Note: 180 is the largest working zoom for iTerm at minimal fontsize
