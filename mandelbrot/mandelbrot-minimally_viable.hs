@@ -1,15 +1,15 @@
 import Data.Complex
-precision		= 400
-origin		     	= (0.0 :+ 0.0)
-mandelbrot c	     	= z * z + c
-mandelSeq c	     	= iterate (mandelbrot c) origin
-isMandelbrot c	     	= (<=2) $ realPart $ abs $ last $ take precision $ mandelSeq c
-mandelField tl br z  	= [ [ isMandelbrot (r :+ i) | r <- [startR, startR+step .. endR] ] | i <- [startI, startI-step .. endI] ]
+isMandelbrot c          = (<=2) $ realPart $ abs $ last $ take 400 $ iterate (\z -> z * z + c) (0.0 :+ 0.0)
+mandelField tl br z     = [ [ isMandelbrot (r :+ i) | r <- [startR, startR+step .. endR] ] | i <- [startI, startI-step .. endI] ]
            where startI = imagPart tl
                  startR = realPart tl
                  endI   = startI + imagPart br - imagPart tl
                  endR   = startR + realPart br - realPart tl
                  step   = 1.0 / z
-mandelFieldToString m	= unlines $ map (unwords . map (\c -> if c then " #" else "  ")) m
-printMandelbrot tl br z = putStrLn $ mandelFieldToString $ mandelField tl br z
+printMandelbrot tl br z = putStrLn $ unlines . map (unwords . map (\c -> if c then " #" else "  ")) $ mandelField tl br z
 main = printMandelbrot ((-1.5) :+ ( 1.5)) (( 1.5) :+ (-1.5)) 20.0
+
+-- 10 LINES!!!
+-- And even though I inlined the one-time variables and the mandelSeq code, as
+-- well as the mandelFieldToString function this is still a readable piece of
+-- code. Bloody awesome!

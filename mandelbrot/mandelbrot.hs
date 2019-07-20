@@ -26,7 +26,7 @@ mandelSeq :: Complex Double -> [Complex Double]
 mandelSeq c = iterate (mandelbrot c) origin
 
 isMandelbrot :: Complex Double -> Bool
-isMandelbrot c = (<=2) $ realPart $ abs $ last $ take precision $ mandelSeq c
+isMandelbrot = (<=2) . realPart . abs . last . take precision . mandelSeq
 
 -- Takes top left corner and bottom right corner of rectangle, as well as a
 -- zoom factor and computes which points in the resulting row-major field are
@@ -47,20 +47,21 @@ mandelField tl br z = [ [ isMandelbrot (r :+ i) | r <- [startR, startR+step .. e
 
 
 
-
 {- Output as String -}
 
 mandelFieldToString :: [[Bool]] -> String
-mandelFieldToString m = unlines $ map (unwords . map (\c -> if c then " #" else "  ")) m
+mandelFieldToString = unlines . map (unwords . map (\c -> if c then " #" else "  "))
 
 printMandelbrot :: Complex Double -> Complex Double -> Double -> IO ()
 printMandelbrot tl br z = putStrLn $ mandelFieldToString $ mandelField tl br z
 
+printMandelbrot' :: Complex Double -> Double -> IO ()
+printMandelbrot' c z = putStrLn $ mandelFieldToString $ mandelField' c z
 
 
 
 
-{- Nice outputs -}
+{- Nice outputs with mandelField -}
 
 -- Used as input for doubly uncurried printMandelbrot:
 --   f a b c              :: a -> b -> c   -> d
