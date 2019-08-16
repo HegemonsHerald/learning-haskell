@@ -6,7 +6,7 @@ mandelField tl br z     = [ [ isMandelbrot (r :+ i) | r <- [startR, startR+step 
                  endI   = startI + imagPart br - imagPart tl
                  endR   = startR + realPart br - realPart tl
                  step   = 1.0 / z
-printMandelbrot tl br z = putStrLn $ unlines . map (unwords . map (\c -> if c then " #" else "  ")) $ mandelField tl br z
+printMandelbrot tl br z = putStrLn $ unlines . map (foldl (++) "" . map (\c -> if c then "███" else "   ")) $ mandelField tl br z
 main = printMandelbrot ((-1.5) :+ ( 1.5)) (( 1.5) :+ (-1.5)) 20
 
 -- 10 LINES!!!

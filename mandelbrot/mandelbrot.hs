@@ -36,10 +36,10 @@ isMandelbrot = (<=2) . realPart . abs . last . take precision . mandelSeq
 --           i walks top-to-bottom so negative steps
 mandelField :: Complex Double -> Complex Double -> Double -> [[Bool]]
 mandelField tl br z = [ [ isMandelbrot (r :+ i) | r <- [startR, startR+step .. endR] ] | i <- [startI, startI-step .. endI] ]
-   where height = imagPart br - imagPart tl
-         width  = realPart br - realPart tl
-         startI = imagPart tl
+   where startI = imagPart tl
          startR = realPart tl
+         height = imagPart br - startI
+         width  = realPart br - startR
          endI   = startI + height
          endR   = startR + width
          step   = 1 / z
